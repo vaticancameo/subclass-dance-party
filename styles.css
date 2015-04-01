@@ -24,9 +24,9 @@ body, a:link, a:visited, a:active{
   border:10px solid red;
   border-radius:10px;
   position:absolute;
-}
-.dancer:hover {
-  cursor: pointer;
+  -webkit-transition: top .5s, left .5s;
+  transition: top .5s, left .5s;
+  background-size: cover;
 }
 .square{
   -webkit-transition: width 2s, height .5s;
@@ -36,6 +36,22 @@ body, a:link, a:visited, a:active{
   height: 25px;
   border-radius: 3px;
   border: none;
+  animation-name: rotation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: rotation;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+}
+@keyframes rotation{ 
+  0% {transform: rotate(0deg);}
+  50% {transform: rotate(180deg);}
+  100% {transform: rotate(360deg);}
+}
+@-webkit-keyframes rotation{ 
+  0% {-webkit-transform: rotate(0deg);}
+  50% {-webkit-transform: rotate(180deg);}
+  100% {-webkit-transform: rotate(360deg);}
 }
 .square.expand {
   width: 60px;

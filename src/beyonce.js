@@ -11,3 +11,7 @@ Beyonce.prototype.step = function() {
   this.oldStep();
   this.setPosition(Math.random() * $('body').height(), Math.random() * $('body').width());
 }
+
+Beyonce.prototype.collision = function() {
+  
+}; 

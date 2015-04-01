@@ -4,16 +4,35 @@ var MakeDancer = function(top, left, timeBetweenSteps){
   // use jQuery to create an HTML <span> tag
   this.$node = $('<span class="dancer"></span>');
   this.timeBetweenSteps = timeBetweenSteps;
+  this.setPosition(top, left);
   this.step();
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
-  this.setPosition(top, left);
+
 
 };
 
 MakeDancer.prototype.step = function(){
     // the basic dancer doesn't do anything interesting at all on each step,
     // it just schedules the next step
+    // get positions of each dancer
+    var pos = this.$node.offset();
+    var x = pos.left;
+    var y = pos.top;
+
+    for (var i = 0; i < window.dancers.length; i++) {
+      if (window.dancers[i] !== this) {
+        var otherPos = window.dancers[i].$node.offset();
+        var otherX = otherPos.left;
+        var otherY = otherPos.top;
+        var distance = Math.sqrt(Math.pow((x - otherX),2)+Math.pow((y - otherY),2));
+        console.log(distance);
+        if ( distance < 100) {
+          this.collision(x,y);
+        }
+      };
+    } 
+    // calculate distance of each dancer between the others using pythagorean theorem
     setTimeout(this.step.bind(this), this.timeBetweenSteps);
 };
 MakeDancer.prototype.setPosition = function(top, left){
@@ -32,7 +51,11 @@ MakeDancer.prototype.lineUp = function(verticalAlign) {
   setTimeout(this.setPosition.bind(this, top, left), 1000);
 };
 
-
+MakeDancer.prototype.collision = function(x, y) {
+  console.log("in collision");
+  this.$node.css ('background-image', "url('Nicki.jpg')");
+  //this.setPosition(x,y);
+}
 //------------------------------------------------------
 // Creates and returns a new dancer object that can step
 /*var makeDancer = function(top, left, timeBetweenSteps){
